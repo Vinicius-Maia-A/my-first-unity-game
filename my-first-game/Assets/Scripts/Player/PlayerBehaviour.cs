@@ -23,12 +23,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         // Subscribe to the jump event from the input manager
         GameManager.Instance.inputManager.OnJump += HandleJump;
+        GameManager.Instance.inputManager.OnRun += HandleRun;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        MovePlayer();    
+        MovePlayer();
     }
 
     // This method handles the player's movement based on input
@@ -69,7 +70,25 @@ public class PlayerBehaviour : MonoBehaviour
     // This method handles the jump action
     private void HandleJump()
     {
+        Debug.Log("Jump action triggered");
         if (isGroundedChecker.IsGrounded() == false) return;
         rb.linearVelocity += Vector2.up * JUMP_FORCE;
+    }
+
+    public void HandleRun(bool isRunning)
+    {
+        // Check if the player is running
+        if (isRunning && isGroundedChecker.IsGrounded() == true)
+        {
+            Debug.Log("Running triggered");
+
+            MOVE_SPEED = 10;
+        }
+        else
+        {
+            Debug.Log("Running canceled");
+            // Reset to normal movement speed
+            MOVE_SPEED = 5;
+        }
     }
 }

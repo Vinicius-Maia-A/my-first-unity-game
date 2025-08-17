@@ -27,5 +27,4 @@ public class isGroundedChecker : MonoBehaviour
         }
         Gizmos.DrawWireCube(checkerPosition.position, checkerSize);
     }
-
 }
